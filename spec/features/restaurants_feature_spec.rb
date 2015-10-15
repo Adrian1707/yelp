@@ -63,7 +63,12 @@ feature 'restaurants' do
   end
 
   context 'editing restaurants' do
-    before { Restaurant.create name: 'KFC' }
+    before do
+      visit '/restaurants'
+      click_link 'Add a restaurant'
+      fill_in 'Name', with: 'KFC'
+      click_button 'Create Restaurant'
+    end
 
     scenario 'let a user edit a restaurant' do
       visit '/restaurants'
@@ -76,7 +81,12 @@ feature 'restaurants' do
   end
 
   context 'deleting restaurants' do
-    before { Restaurant.create name: 'KFC' }
+    before do
+      visit '/restaurants'
+      click_link 'Add a restaurant'
+      fill_in 'Name', with: 'KFC'
+      click_button 'Create Restaurant'
+    end
 
     scenario 'removes a restaurant when a user clicks a delete link' do
       visit '/restaurants'
@@ -87,22 +97,24 @@ feature 'restaurants' do
 
     context "when signed in" do
       it "should not allow you to delete a restaurant you didn't create" do
+        visit '/restaurants'
         click_link "Sign out"
         click_link "Sign up"
         fill_in("Email", with: "test222@test.com")
         fill_in("Password", with: "testtest22")
         fill_in("Password confirmation", with: "testtest22")
         click_button("Sign up")
-        click_link "Delete KFC"
-        expect(current_path).to eq '/restaurants'
-        expect(page).to have_content "error"
+        expect(current_path).to eq '/'
+        expect(page).not_to have_link "Delete KFC"
       end
     end
   end
 
-    scenario 'should display a prompt to add a restaurant' do
-      visit '/restaurants'
-      expect(page).to have_content "No restaurants yet"
-      expect(page).to have_link 'Add a restaurant'
-    end
+  scenario 'should display a prompt to add a restaurant' do
+    visit '/restaurants'
+    expect(page).to have_content "No restaurants yet"
+    expect(page).to have_link 'Add a restaurant'
+  end
+
+
 end
