@@ -17,4 +17,8 @@ describe Restaurant, type: :model do
     expect(restaurant).to have(1).error_on(:name)
   end
 
+  xit 'cannot be deleted by a user that did not create it' do
+    # shoulda feature needed :(
+  end
+
 end
