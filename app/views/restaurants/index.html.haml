@@ -4,13 +4,13 @@
     %h3
       Review for
       = restaurant.name
+      = "Average rating: #{restaurant.average_rating.to_i}"
 
     - if restaurant.reviews.any?
       %ul
         - restaurant.reviews.each do |review|
           %li
             = review.thoughts
-            -# = review.average_rating
             %strong= review.rating
             \/5
     - else
