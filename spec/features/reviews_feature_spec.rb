@@ -25,7 +25,7 @@ feature 'reviewing' do
     fill_in "Thoughts", with: thoughts
     select rating, from: 'Rating'
     click_button 'Leave Review'
-  end 
+  end
 
   scenario 'allows users to leave a review using a form' do
     expect(current_path).to eq '/restaurants'
@@ -34,7 +34,7 @@ feature 'reviewing' do
 
   scenario 'displays an average rating for all reviews' do
     leave_review("Great", '5')
-    expect(page).to have_content("Average rating: 4")
+    expect(page).to have_content("Average rating: ★★★★☆")
   end
 
   # scenario 'user can only leave one review per restaurant' do
