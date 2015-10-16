@@ -12,8 +12,15 @@ class Restaurant < ActiveRecord::Base
       errors.add(:user, 'cannot delete this restaurant')
       return false
     end
-
     destroy
+  end
+
+  def average_rating
+    if reviews.none?
+      "N/A"
+    else
+      reviews.average(:rating)
+    end
   end
 
 end
