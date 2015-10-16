@@ -19,6 +19,7 @@ feature 'restaurants' do
       expect(page).to have_content('KFC')
       expect(page).not_to have_content("No restaurants yet!")
     end
+
   end
 
   context 'creating restaurants' do
